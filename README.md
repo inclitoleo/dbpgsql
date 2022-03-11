@@ -2,6 +2,11 @@
 # Libary PostgreSQL
 Library for connecting PostgreSQL databases. Simple, fast and objective.
 
+#Install dependency
+```shell
+composer require inclitoleo/pgsql
+```
+
 ## Documentation
 ```php
 <?php
