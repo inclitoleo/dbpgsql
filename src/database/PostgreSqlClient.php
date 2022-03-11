@@ -93,9 +93,9 @@ class PostgreSqlClient extends DataBaseConnection
      * @param string $table - Name of table in database
      * @param string $field - Database field to be compared default FALSE
      * @param int|float|string $value - Default search element FALSE
-     * @return object Returns only one row within an object.
+     * @return object|boolean Returns only one row within an object.
      */
-    public function select(string $table, string $field, $value): object
+    public function select(string $table, string $field, $value)
     {
         $condition = NULL;
 
@@ -119,6 +119,7 @@ class PostgreSqlClient extends DataBaseConnection
             echo $e->getMessage();
 
         }
+
         return false;
     }
 
