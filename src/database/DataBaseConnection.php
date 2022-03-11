@@ -34,12 +34,12 @@ class DataBaseConnection
     /**
      * string $password
      */
-    private  $password = 'Leo@2979';
+    private  $password = '';
 
     /**
      * string $database
      */
-    private  $database = 'leonardocosta';
+    private  $database = '';
 
     /**
      * string $port
