@@ -2,7 +2,7 @@
 # Libary PostgreSQL
 Library for connecting PostgreSQL databases. Simple, fast and objective.
 
-#Install dependency
+##Install dependency
 ```shell
 composer require inclitoleo/pgsql
 ```
