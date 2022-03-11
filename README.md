@@ -7,6 +7,41 @@ Library for connecting PostgreSQL databases. Simple, fast and objective.
 composer require inclitoleo/pgsql
 ```
 
+## Connection data
+```php
+//Access the DataBaseConnection class and insert the connection data.
+ /**
+     * string $driver
+     */
+    private  $driver = 'pgsql';
+
+    /**
+     * string $host
+     */
+    private  $host = 'localhost';
+
+    /**
+     * string $username
+     */
+    private  $username = 'postgres';
+
+    /**
+     * string $password
+     */
+    private  $password = 'test@123';
+
+    /**
+     * string $database
+     */
+    private  $database = 'test';
+
+    /**
+     * string $port
+     */
+    private  $port = 5432;
+```
+
+
 ## Documentation
 ```php
 <?php
