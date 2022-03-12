@@ -14,36 +14,6 @@ namespace Inclitoleo\Pgsql\database;
  */
 class DataBaseConnection
 {
-
-    /**
-     * string $driver
-     */
-    private  $driver = 'pgsql';
-
-    /**
-     * string $host
-     */
-    private  $host = 'localhost';
-
-    /**
-     * string $username
-     */
-    private  $username = 'postgres';
-
-    /**
-     * string $password
-     */
-    private  $password = '';
-
-    /**
-     * string $database
-     */
-    private  $database = '';
-
-    /**
-     * string $port
-     */
-    private  $port = 5432;
     
     /**
      * Returns the database connection and its methods
@@ -54,12 +24,12 @@ class DataBaseConnection
     {
         $dataconn = new \stdClass();
 
-        $dataconn->driver = $this->driver;
-        $dataconn->host = $this->host;
-        $dataconn->port = $this->port;
-        $dataconn->username = $this->username;
-        $dataconn->password = $this->password;
-        $dataconn->database = $this->database;
+        $dataconn->driver = INCLITODRIVER;
+        $dataconn->host = INCLITOHOST;
+        $dataconn->port = INCLITOPORT;
+        $dataconn->username = INCLITOUSER;
+        $dataconn->password = INCLITOPWD;
+        $dataconn->database = INCLITODBNAME;
 
         return $dataconn;
     }

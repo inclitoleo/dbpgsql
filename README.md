@@ -9,36 +9,13 @@ composer require inclitoleo/pgsql
 
 ## Connection data
 ```php
-//Access the DataBaseConnection class and insert the connection data.
- /**
-     * string $driver
-     */
-    private  $driver = 'pgsql';
-
-    /**
-     * string $host
-     */
-    private  $host = 'localhost';
-
-    /**
-     * string $username
-     */
-    private  $username = 'postgres';
-
-    /**
-     * string $password
-     */
-    private  $password = 'test@123';
-
-    /**
-     * string $database
-     */
-    private  $database = 'test';
-
-    /**
-     * string $port
-     */
-    private  $port = 5432;
+//Create the constants below in your configuration file, where the application can call the information.
+const INCLITOHOST = 'localhost'; //Host access Database
+const INCLITODBNAME = ''; //Name Database
+const INCLITOUSER = ''; //User Connection
+const INCLITOPWD = ''; //Password Database
+const INCLITODRIVER = 'pgsql'; //Driver Default
+const INCLITOPORT = 5432; //Port Default 
 ```
 
 

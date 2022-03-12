@@ -25,6 +25,12 @@ class PostgreSqlClient extends DataBaseConnection
      */
     protected $encapsulateKey = array("`", "`");
 
+    /**
+     * $driver connection
+     * @var    string
+     */
+    protected $driver;
+
     public function __construct()
     {
         try {
@@ -40,8 +46,11 @@ class PostgreSqlClient extends DataBaseConnection
 
             $this->driver->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        } catch (PDOException $e) {
-            echo $e->getMessage();
+
+
+        } catch (\PDOException $e) {
+            echo '##Verify configurations of the Database.##'.PHP_EOL ;
+            echo $e->getMessage() .' (Line file: '.$e->getLine().') '.$e->getFile().PHP_EOL;
         }
     }
 
@@ -74,12 +83,12 @@ class PostgreSqlClient extends DataBaseConnection
                 $stmt->bindValue($i++, $value);
             }
 
-            $stmt->execute() or die(print_r($stmt->errorInfo()));
+            if ($stmt->execute()) {
+                return $this->driver->lastInsertId();
+            }
 
-            return $this->driver->lastInsertId();
-
-        } catch (PDOException $e) {
-            echo 'database - ' . __METHOD__, $e->getMessage() . DIRECTORY_SEPARATOR . $e->getCode();
+        } catch (\PDOException $e) {
+            echo $e->getMessage() .' (Line file: '.$e->getLine().') '.$e->getFile().PHP_EOL;
         }
 
         return false;
@@ -112,11 +121,13 @@ class PostgreSqlClient extends DataBaseConnection
                 $stmt->bindParam(1, $value);
             }
 
-            $stmt->execute() or die(print_r($stmt->errorInfo()));
-            return $stmt->fetchObject();
+            if ($stmt->execute()) {
+                return $stmt->fetchObject();
+            }
 
-        } catch (PDOException $e) {
-            echo $e->getMessage();
+
+        } catch (\PDOException $e) {
+            echo $e->getMessage() .' (Line file: '.$e->getLine().') '.$e->getFile().PHP_EOL;
 
         }
 
@@ -144,12 +155,12 @@ class PostgreSqlClient extends DataBaseConnection
         try {
             $stmt = $this->driver->prepare($queryString);
 
-            $stmt->execute() or die(print_r($stmt->errorInfo()));
+            if ($stmt->execute()) {
+                return $stmt->fetchAll(PDO::FETCH_OBJ);
+            }
 
-            return $stmt->fetchAll(PDO::FETCH_OBJ);
-
-        } catch (PDOException $e) {
-            echo 'database - ' . __METHOD__, $e->getMessage() . DIRECTORY_SEPARATOR . $e->getCode();
+        } catch (\PDOException $e) {
+            echo $e->getMessage() .' (Line file: '.$e->getLine().') '.$e->getFile().PHP_EOL;
         }
 
         return false;
@@ -168,7 +179,7 @@ class PostgreSqlClient extends DataBaseConnection
         try {
             $stmt = $this->driver->prepare($sqlSelect);
 
-            $stmt->execute() or die(print_r($stmt->errorInfo()));
+            $stmt->execute();
 
             if (strtoupper($type) == "U") {
                 return $stmt->fetchObject();
@@ -177,8 +188,8 @@ class PostgreSqlClient extends DataBaseConnection
             }
 
 
-        } catch (PDOException $e) {
-            return $e->getMessage() . DIRECTORY_SEPARATOR . $e->getCode();
+        } catch (\PDOException $e) {
+            echo $e->getMessage() .' (Line file: '.$e->getLine().') '.$e->getFile().PHP_EOL;
         }
 
         return false;
@@ -220,12 +231,12 @@ class PostgreSqlClient extends DataBaseConnection
                 $stmt->bindValue($i, $values[$i - 1]);
             }
 
-            $stmt->execute() or die(print_r($stmt->errorInfo()));
+            if ($stmt->execute()) {
+                return true;
+            }
 
-            return true;
-
-        } catch (PDOException $e) {
-            return $e->getMessage();
+        } catch (\PDOException $e) {
+            echo $e->getMessage() .' (Line file: '.$e->getLine().') '.$e->getFile().PHP_EOL;
         }
     }
 
@@ -247,12 +258,13 @@ class PostgreSqlClient extends DataBaseConnection
             $stmt = $this->driver->prepare($queryString);
             $stmt->bindValue(1, $value);
 
-            $stmt->execute() or die($stmt->errorInfo());
+            if ($stmt->execute()) {
+                return $stmt->rowCount();
+            }
 
-            return $stmt->rowCount();
 
-        } catch (PDOException $e) {
-            echo 'database - ' . __METHOD__, $e->getMessage() . DIRECTORY_SEPARATOR . $e->getCode();
+        } catch (\PDOException $e) {
+            echo $e->getMessage() .' (Line file: '.$e->getLine().') '.$e->getFile().PHP_EOL;
         }
 
         return false;
@@ -276,9 +288,9 @@ class PostgreSqlClient extends DataBaseConnection
 
             return $stmt->fetchAll(PDO::FETCH_OBJ);
 
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             $this->driver->rollBack();
-            echo 'database - ' . __METHOD__, $e->getMessage() . DIRECTORY_SEPARATOR . $e->getCode();
+            echo $e->getMessage() .' (Line file: '.$e->getLine().') '.$e->getFile().PHP_EOL;
         }
     }
 
