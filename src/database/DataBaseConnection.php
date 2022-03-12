@@ -5,7 +5,6 @@ namespace Inclitoleo\Pgsql\database;
 /**
  * @file ModelDataBase.php
  * Library responsible for DB connection control and manipulation
- *
  * @name Haush Framework
  * @author LeoCosta (Inclitoleo) <inclitoleo@yandex.com>
  * @copyright Copyright (c) 202022
