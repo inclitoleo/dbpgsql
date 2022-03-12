@@ -89,6 +89,9 @@ $id = 1;
 $select = $db->select('account','id',$id);
 echo $select->name .' | '.$select->email;
 
+echo $db->select('account','id',9)->name;
+echo $db->select('account','id',9)->email;
+
 /**
  * Returns multiple elements within the object
  *
