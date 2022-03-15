@@ -6,10 +6,7 @@
     "autoload": {
         "psr-4": {
             "Inclitoleo\\Pgsql\\": "src/"
-        },
-        "files": [
-            "config.php"
-        ]
+        }
     },
     "authors": [
         {
@@ -19,6 +16,7 @@
         }
     ],
     "require": {
-        "php": ">=7.2"
+        "php": ">=7.2",
+        "ext-pdo": "*"
     }
 }
