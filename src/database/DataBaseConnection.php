@@ -12,6 +12,7 @@ namespace Inclitoleo\Pgsql\database;
  * @revision - 2022-03-11 11:51
  * @version v1.5.2022
  */
+
 class DataBaseConnection
 {
     
