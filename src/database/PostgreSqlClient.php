@@ -3,6 +3,7 @@
 namespace Inclitoleo\Pgsql\database;
 
 use PDO;
+use PDOException;
 
 /**
  * Name of the class that contains the database manipulation handling methods.
@@ -47,10 +48,9 @@ class PostgreSqlClient extends DataBaseConnection
             $this->driver->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
-
-        } catch (\PDOException $e) {
-            echo '##Verify configurations of the Database.##'.PHP_EOL ;
-            echo $e->getMessage() .' (Line file: '.$e->getLine().') '.$e->getFile().PHP_EOL;
+        } catch (PDOException $e) {
+            echo '##Verify configurations of the Database.##' . PHP_EOL;
+            echo $e->getMessage() . ' (Line file: ' . $e->getLine() . ') ' . $e->getFile() . PHP_EOL;
         }
     }
 
@@ -87,8 +87,8 @@ class PostgreSqlClient extends DataBaseConnection
                 return $this->driver->lastInsertId();
             }
 
-        } catch (\PDOException $e) {
-            echo $e->getMessage() .' (Line file: '.$e->getLine().') '.$e->getFile().PHP_EOL;
+        } catch (PDOException $e) {
+            echo $e->getMessage() . ' (Line file: ' . $e->getLine() . ') ' . $e->getFile() . PHP_EOL;
         }
 
         return false;
@@ -126,8 +126,8 @@ class PostgreSqlClient extends DataBaseConnection
             }
 
 
-        } catch (\PDOException $e) {
-            echo $e->getMessage() .' (Line file: '.$e->getLine().') '.$e->getFile().PHP_EOL;
+        } catch (PDOException $e) {
+            echo $e->getMessage() . ' (Line file: ' . $e->getLine() . ') ' . $e->getFile() . PHP_EOL;
 
         }
 
@@ -159,11 +159,11 @@ class PostgreSqlClient extends DataBaseConnection
                 return $stmt->fetchAll(PDO::FETCH_OBJ);
             }
 
-        } catch (\PDOException $e) {
-            echo $e->getMessage() .' (Line file: '.$e->getLine().') '.$e->getFile().PHP_EOL;
+        } catch (PDOException $e) {
+            echo $e->getMessage() . ' (Line file: ' . $e->getLine() . ') ' . $e->getFile() . PHP_EOL;
         }
 
-        return false;
+        return array();
     }
 
     /**
@@ -188,11 +188,11 @@ class PostgreSqlClient extends DataBaseConnection
             }
 
 
-        } catch (\PDOException $e) {
-            echo $e->getMessage() .' (Line file: '.$e->getLine().') '.$e->getFile().PHP_EOL;
+        } catch (PDOException $e) {
+            echo $e->getMessage() . ' (Line file: ' . $e->getLine() . ') ' . $e->getFile() . PHP_EOL;
         }
 
-        return false;
+        return array();
     }
 
     /**
@@ -235,9 +235,11 @@ class PostgreSqlClient extends DataBaseConnection
                 return true;
             }
 
-        } catch (\PDOException $e) {
-            echo $e->getMessage() .' (Line file: '.$e->getLine().') '.$e->getFile().PHP_EOL;
+        } catch (PDOException $e) {
+            echo $e->getMessage() . ' (Line file: ' . $e->getLine() . ') ' . $e->getFile() . PHP_EOL;
         }
+
+        return false;
     }
 
     /**
@@ -263,8 +265,8 @@ class PostgreSqlClient extends DataBaseConnection
             }
 
 
-        } catch (\PDOException $e) {
-            echo $e->getMessage() .' (Line file: '.$e->getLine().') '.$e->getFile().PHP_EOL;
+        } catch (PDOException $e) {
+            echo $e->getMessage() . ' (Line file: ' . $e->getLine() . ') ' . $e->getFile() . PHP_EOL;
         }
 
         return false;
@@ -288,17 +290,18 @@ class PostgreSqlClient extends DataBaseConnection
 
             return $stmt->fetchAll(PDO::FETCH_OBJ);
 
-        } catch (\PDOException $e) {
+        } catch (PDOException $e) {
             $this->driver->rollBack();
-            echo $e->getMessage() .' (Line file: '.$e->getLine().') '.$e->getFile().PHP_EOL;
+            echo $e->getMessage() . ' (Line file: ' . $e->getLine() . ') ' . $e->getFile() . PHP_EOL;
         }
-    }
 
+        return array();
+    }
 
     /**
      * @return array
      */
-    public function getEncapsulateKey()
+    public function getEncapsulateKey(): array
     {
         return $this->encapsulateKey;
     }
@@ -306,7 +309,7 @@ class PostgreSqlClient extends DataBaseConnection
     /**
      * @param array $encapsulateKey
      */
-    public function setEncapsulateKey($encapsulateKey)
+    public function setEncapsulateKey(array $encapsulateKey)
     {
         $this->encapsulateKey = $encapsulateKey;
     }
@@ -317,7 +320,7 @@ class PostgreSqlClient extends DataBaseConnection
      * @param string $string - String to take effect
      * @return string String change
      */
-    protected function escapeString(string $string)
+    protected function escapeString(string $string): string
     {
         return preg_replace("/'/is", "''", $string);
     }
